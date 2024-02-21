@@ -9,9 +9,9 @@ Sidebar.Child = ({ name = "", href = "#!", icon: Icon }) => {
     return (
         <Fragment>
             <Link to={href} className=" text-white  hover:text-purple-800">
-                <div className={`py-[1px] w-full px-4 items-center  flex gap-x-2 ${window.location.pathname==href?'bg-white text-purple-700':''}`}>
-                    <div className="pl-8">{Icon}</div>
-                    <p className="mt-3 text-lg">{name}</p>
+                <div className={`py-[6px] w-full px-4 items-center  flex gap-x-2 ${window.location.pathname==href?'bg-[#ffffff2c] text-white':''}`}>
+                    <div className="pl-8 pt-1">{Icon}</div>
+                    <p className=" text-lg">{name}</p>
                 </div>
             </Link>
         </Fragment>

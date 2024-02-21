@@ -6,6 +6,7 @@ import { UserAuthFinal } from '../../app/contextapi/UserContext';
 import graphQLQueries from '../../app/graphql/queries';
 import { useGetAllOrdersByUserQuery } from '../../../features/store/slices/ordersApiSlice';
 import {useNavigate}  from 'react-router'
+import auth from '../../app/auth/auth';
 
 const Order = () =>
 {
@@ -14,7 +15,7 @@ const Order = () =>
     const navigate = useNavigate();
 
 
-   let orderQueryData = useGetAllOrdersByUserQuery();
+   let orderQueryData = useGetAllOrdersByUserQuery({jwtToken:auth?.isAuthenticated()});
 
     
     return (

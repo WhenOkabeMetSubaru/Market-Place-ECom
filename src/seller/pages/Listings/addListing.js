@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SellerLayout from '../../layouts/SellerLayout'
-import { Form, Input } from 'antd'
+import { Form, Input, Select,Space } from 'antd'
 import { SellerAuthFinal } from '../../app/providers/SellerContext';
 import { useAddNewShopBySellerMutation } from '../../../features/store/slices/shopsApiSlice';
 import { useAddNewListingBySellerMutation } from '../../../features/store/slices/productsApiSlice';
-import {imageUploadMultiple,ImageUploadComponent} from '../../../features/image/imageUpload'
-import { AiOutlineMinusCircle } from 'react-icons/ai';
+import { imageUploadMultiple, ImageUploadComponent } from '../../../features/image/imageUpload'
+import { AiOutlineMinusCircle, AiOutlinePlus } from 'react-icons/ai';
+import { useGetAllPrimaryCategoriesQuery, useLazyGetAllSecondaryCategoriesQuery, useLazyGetPrimaryToSubCategoriesQuery } from '../../../features/store/slices/categoryApiSlice';
 
 
 const AddListing = () =>
@@ -14,11 +15,17 @@ const AddListing = () =>
     const [addProductForm] = Form.useForm();
     const { currentShop } = SellerAuthFinal()
 
-    const [addProduct] = useAddNewListingBySellerMutation()
+    const [addProduct] = useAddNewListingBySellerMutation();
+
+    const getAllPrimaryCategories = useGetAllPrimaryCategoriesQuery();
+    const [getAllSecondaryCategories, secondaryCategoryData] = useLazyGetPrimaryToSubCategoriesQuery()
+
+
+    const [pCategory, setPCategory] = useState('');
+    const [sCategory, setSCategory] = useState("")
 
     const handleAddProduct = async (values) =>
     {
-
 
 
         let productImages = [];
@@ -31,8 +38,10 @@ const AddListing = () =>
         }
 
         let imgData = await imageUploadMultiple(productImages);
-        values.images = imgData.data;
+        values.images = imgData;
         values.quantity = +values.quantity;
+
+        console.log(currentShop)
         addProduct({ productDetails: values, shopId: currentShop._id }).then((res) =>
         {
             console.log(res)
@@ -51,7 +60,7 @@ const AddListing = () =>
                             Finish
                         </button>
                     </div>
-                    <div className='mx-5 w-1/3'>
+                    <div className='mx-5 w-5/12'>
                         <Form.Item name="name" label="Product Name" >
                             <Input placeholder="Enter Product Name" />
                         </Form.Item>
@@ -62,9 +71,36 @@ const AddListing = () =>
                         <Form.Item normalize={ filter } name="sellingprice" label="Selling Price">
                             <Input placeholder='Enter Selling Price' />
                         </Form.Item>
-                        <Form.Item name="category" label="Category">
-                            <Input placeholder='Enter Category' />
+                        <Form.Item name="primary_category" label="Primary Category">
+                            <Select value={ pCategory } onChange={ (value) =>
+                            {
+                                setPCategory(value);
+                                getAllSecondaryCategories({ categoryId: value })
+                            } }>
+                                {
+                                    getAllPrimaryCategories?.data?.data?.map((item, i) =>
+                                    {
+                                        return <Select.Option key={ i } value={ item?._id }>{ item?.name }</Select.Option>
+                                    })
+                                }
+                            </Select>
                         </Form.Item>
+                        {
+                            pCategory && <Form.Item name="secondary_category" label="Sub Category">
+                                <Select value={ sCategory } onChange={ (value) =>
+                                {
+                                    setSCategory(value);
+
+                                } }>
+                                    {
+                                        secondaryCategoryData?.data?.data?.map((item, i) =>
+                                        {
+                                            return <Select.Option key={ item._id } value={ item?._id }>{ item?.name }</Select.Option>
+                                        })
+                                    }
+                                </Select>
+                            </Form.Item>
+                        }
                         <Form.Item normalize={ filter } name="quantity" label="Quantity">
                             <Input placeholder='Enter Quantity' />
                         </Form.Item>
@@ -144,6 +180,36 @@ const AddListing = () =>
                                         </button>
 
                                         <Form.ErrorList errors={ errors } />
+                                    </Form.Item>
+                                </>
+                            ) }
+                        </Form.List>
+
+
+
+                        <Form.List  name="specifications">
+                            { (fields, { add, remove }) => (
+                                <>
+                                    { fields.map(({ key, name, ...restField }) => (
+                                        <Space key={ key } style={ { display: "flex", marginBottom: 8 } } align={ "center" }>
+                                            <Form.Item className='w-[180px]' label="Title" { ...restField } name={ [name, "name"] } >
+                                                <Input placeholder="Title" />
+                                            </Form.Item>
+                                            <Form.Item className='w-[350px]' label="Details" { ...restField } name={ [name, "info"] } >
+                                                <Input.TextArea rows={ 4 } placeholder="Details" />
+                                            </Form.Item>
+                                           
+
+                                            {/* <Form.Item className='w-[100px]' label="Amount" {...restField} name={[name, "total"]} >
+                                                                <Input onChange={(e) => handleAmountChange(e, key)} value={amountCalculate.main_amount[key]} placeholder="Amount" />
+                                                            </Form.Item> */}
+                                            <AiOutlineMinusCircle size={ 20 } color="red" onClick={ () => { remove(name); } } className={ `mt-3 cursor-pointer ${key == 0 ? 'hidden' : ''}` } />
+                                        </Space>
+                                    )) }
+                                    <Form.Item>
+                                        <button className='py-1 px-3 bg-purple-500 text-white rounded' type="dashed" onClick={ () => add() } icon={ <AiOutlinePlus /> }>
+                                            Add field
+                                        </button>
                                     </Form.Item>
                                 </>
                             ) }

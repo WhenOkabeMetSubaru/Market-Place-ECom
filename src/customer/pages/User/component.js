@@ -11,7 +11,7 @@ export const ProfileSideMenu = ({children}) =>
   
 
     return (
-        <section className='flex font-mono justify-center bg-gray-100 p-5 min-h-screen'>
+        <section className='flex font-sans justify-center bg-gray-100 p-5 min-h-screen'>
             <div className='w-4/5 flex bg-white  min-h-screen'>
                 <div className='w-1/4  '>
                     <div className='h-20  px-2 gap-x-2 shadow flex items-center'>
@@ -32,6 +32,7 @@ export const ProfileSideMenu = ({children}) =>
                         <li onClick={ () => navigate('/user/orders') } className='mt-10 cursor-pointer rounded bg-gradient-to-l py-2 from-purple-400 to-purple-600 text-white w-1/2 mx-20'>View Orders</li>
                     </ul>
                 </div>
+                
                 {children}
             </div>
         </section>

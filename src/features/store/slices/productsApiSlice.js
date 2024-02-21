@@ -5,12 +5,17 @@ import apiSlice from "../apiSlice";
 const adminToken = authAdmin.isAuthenticated() || null;
 const sellerToken = authSeller.isAuthenticated() || null;
 
+
+
 export const productApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         getAllProducts: builder.query({
             query: ({ _id }) => ({
-                url: `auth/v1/${_id}/products`,
+                url: `api/v1/${_id}/products`,
                 method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${adminToken || ""}`
+                }
             })
         }),
         getAllProductsByUserHome: builder.query({

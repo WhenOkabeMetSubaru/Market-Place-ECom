@@ -30,6 +30,7 @@ import ShopsAdmin from './admin/pages/shops';
 import OrdersAdmin from './admin/pages/orders';
 import AdminLogin from './admin/pages/loginpage';
 import AdminAuth from './admin/contextapi/AdminContext';
+import CategoryAdmin from './admin/pages/category/index'
 
 
 import SellerAuth from './seller/app/providers/SellerContext';
@@ -44,6 +45,8 @@ import SingleOrder from './customer/pages/Orders/singleOrder/SingleOrder';
 import Address from './customer/pages/User/Address';
 import SavedCards from './customer/pages/User/SavedCards';
 import Vouchers from './customer/pages/User/Voucher';
+import CategoryCustomer from './customer/pages/Product/Category';
+import CategoryProducts from './customer/pages/Product/CategoryProducts';
 
 
 function App ()
@@ -77,6 +80,8 @@ function App ()
           <Route exact path="/cart" element={ <UserAuth children={ <NavBar children={ <Cart /> } /> } /> } />
           <Route exact path="/checkout" element={ <UserAuth children={ <NavBar children={ <Checkout/> } /> } /> } />
           <Route exact path="/orders/:orderId" element={ <UserAuth children={ <NavBar children={ <SingleOrder /> } /> } /> } />
+          <Route exact path="/category/:categoryId" element={ <UserAuth children={ <NavBar children={ <CategoryCustomer /> } /> } /> } />
+          <Route exact path="/product/all/:categoryId" element={ <UserAuth children={ <NavBar children={ <CategoryProducts /> } /> } /> } />
           
 
               //Seller Routes
@@ -98,6 +103,10 @@ function App ()
             <Route path='shops' element={ <AdminAuth children={ <ShopsAdmin /> } /> } />
             <Route path='orders' element={ <AdminAuth children={ <OrdersAdmin /> } /> } />
             <Route path='login' element={ <AdminAuth children={ <AdminLogin /> } /> } />
+            <Route path='category' element={ <AdminAuth children={ <CategoryAdmin /> } /> } />
+            <Route path='category/add' element={ <AdminAuth children={ <CategoryAdmin /> } /> } />
+
+
           </Route>
 
         </Routes>

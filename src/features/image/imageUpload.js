@@ -4,12 +4,14 @@ import { AiOutlinePlus } from "react-icons/ai";
 export const imageUpload = async (img) =>
 {
     const form = new FormData();
-    form.append('testimage', img);
+    form.append('file', img);
+    form.append("upload_preset", "ml_default");
+    form.append("cloud_name", "dh6kaqmlf")
     try
     {
 
 
-        let response = await fetch('http://localhost:4000/uploads/single',
+        let response = await fetch('https://api.cloudinary.com/v1_1/dh6kaqmlf/image/upload',
             {
                 method: 'POST',
                 body: form
@@ -25,22 +27,31 @@ export const imageUpload = async (img) =>
 
 export const imageUploadMultiple = async (images) =>
 {
-    const form = new FormData();
-    let tempArr = [];
+    // const form = new FormData();
+    // let tempArr = [];
 
-    for (let i = 0; i < images.length; i++)
-    {
-        form.append('testimages', images[i]);
+    // for (let i = 0; i < images.length; i++)
+    // {
+    //     form.append('testimages', images[i]);
+    // }
+
+    // form.append('testimages', tempArr);
+    // console.log(form.get('testimages'))
+    // let response = await fetch('http://localhost:4000/uploads/multiple', {
+    //     method: 'POST',
+    //     body: form
+    // })
+
+    // return response.json();
+
+    let finalResult = [];
+
+    for(let i = 0;i<images.length;i++){
+        let res = await imageUpload(images[i]);
+        finalResult.push(res.url)
     }
 
-    form.append('testimages', tempArr);
-    console.log(form.get('testimages'))
-    let response = await fetch('http://localhost:4000/uploads/multiple', {
-        method: 'POST',
-        body: form
-    })
-
-    return response.json();
+    return finalResult;
 
 }
 

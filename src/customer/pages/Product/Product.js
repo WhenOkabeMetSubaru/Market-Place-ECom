@@ -16,6 +16,7 @@ const Product = () =>
 {
     const params = useParams();
     const { cartUpdate, currentUser, setCurrentBuyProduct, currentCart, refreshCart } = UserAuthFinal();
+    const [selectedImage,setSelectedImage] = useState(0)
     const navigate = useNavigate();
     // const [product, setProduct] = useState([]);
 
@@ -141,15 +142,26 @@ const Product = () =>
                     <section className='w-11/12 mx-5 lg:mx-20'>
                         <div className='fixed w-1/3  top-[60px] left-20 bottom-0'>
                             <div className='flex w-full mt-5 '>
-                                <div className='w-[100px] h-[300px] '>
-                                    list
+                                <div className='w-[100px] bg-white flex flex-col h-[300px] overflow-y-auto gap-y-2 items-center '>
+                                    {
+                                        product?.images?.map((itm,i)=>{
+                                           
+                                            return (
+                                                <div className={`w-16 h-16 border flex rounded delay-200 justify-center items-center ${selectedImage === i ? '  border-blue-600' : 'border-gray-50' }`}>
+                                                <img key={i} onClick={ () => { setSelectedImage(i)} } src={itm || ""} alt="product image" className={`w-14 cursor-pointer  border rounded h-14 `} />
+                                                </div>
+                                            )
+                                        })
+                                    }
                                 </div>
+                              
                                 <div className='w-full border border-gray-50'>
-                                    <img src={ product?.images ? product?.images[0] : '' } className='w-100 h-[470px] ' />
+                                    <div style={{backgroundImage:`url(${product?.images[selectedImage]})`,backgroundPosition:"50%"}} className='bg-center bg-no-repeat w-96 h-[470px]'/>
+                                    {/* <img src={ product?.images ? product?.images[selectedImage] : '' } className='w-100  h-[470px] ' /> */}
                                 </div>
 
                             </div>
-                            {console.log(findProduct)}
+                            
                             {
                                 
                                  
@@ -176,8 +188,8 @@ const Product = () =>
 
                         </div>
                         <div className='ml-[38.0%] '>
-                            <p className='mt-5 text-2xl font-semibold'>{ product?.name }</p>
-                            <span className='flex items-center space-x-2'>
+                            <p className='pt-5 text-2xl font-semibold'>{ product?.name }</p>
+                            <span className='flex items-center gap-x-3.5 pt-2'>
                                 <p className='flex  items-center pl-[5px] text-[11px] rounded bg-green-500  w-[30px] text-white'>{ 4 } <AiFillStar /></p>
                                 <p className='text-[13px] text-gray-500 font-semibold'>800 Ratings and 200 Reviews</p>
 
@@ -191,39 +203,42 @@ const Product = () =>
                                 <span className='text-gray-400 '>Warranty</span>
                                 <span>{ product?.warranty || '1 Year warranty' }</span>
                             </div>
-                            <div className='flex gap-[100px] mt-10'>
+                            {/* <div className='flex gap-[100px] mt-10'>
                                 <span className='text-gray-400 font-semibold'>Delivery</span>
                                 <input type={ "text" } placeholder="Enter Delivery Pincode" className="border-b-2 focus:border-blue-500 w-[250px] outline-none" prefix={ <FiMapPin size={ 25 } /> } />
                                 <button className='border outline-none py-1 px-5 bg-yellow-500 hover:bg-yellow-600 rounded-sm text-white font-semibold shadow'>Check</button>
-                            </div>
+                            </div> */}
                             <div className='mt-10 flex  gap-[100px]'>
                                 <span className='text-gray-400 font-semibold'>Highlights</span>
                                 <ul className='marker:text-gray-300 list-outside space-y-2 list-disc '>
-                                    <li className=''>lsjljf sdl lore m dlfjljflj</li>
-                                    <li>lsjljf sdl lore m dlfjljflj</li>
-                                    <li>lsjljf sdl lore m dlfjljflj</li>
-                                    <li>lsjljf sdl lore m dlfjljflj</li>
+                                    {
+                                        product?.features?.map((item,idx)=>{
+                                            return <li key={idx}>{item}</li>
+                                        })
+                                    }
                                 </ul>
                             </div>
-                            <div className='mt-10 flex gap-[100px]'>
+                            <div className='mt-10 mb-5 flex gap-[100px]'>
                                 <span className='text-gray-400 font-semibold'>Seller</span>
                                 <p className='text-green-500 font-semibold'>{ product?.shop?.name || 'Unknown' }</p>
                             </div>
-                            <div className='mt-10 flex gap-[100px]'>
-                                <span className='text-gray-400 font-semibold'>Description</span>
-                                <p className='text-green-500 font-semibold h-[50vh] border w-full p-3'>{ product?.description || 'Unknown' }</p>
-                            </div>
-                            <span className='text-gray-400 mt-10 text-2xl font-semibold'>Specifications</span>
-                            <div className='mt-2 mx-5'>
-                                <ul className='list-item space-y-2 list-disc marker:text-gray-300'>
-                                    <li>ljljldjf alkjfk kalie ijfijfljlfjldsjlfjslfjslkfj</li>
-                                    <li>ljljldjf alkjfk kalie ijfijfljlfjldsjlfjslfjslkfj</li>
-                                    <li>ljljldjf alkjfk kalie ijfijfljlfjldsjlfjslfjslkfj</li>
-                                    <li>ljljldjf alkjfk kalie ijfijfljlfjldsjlfjslfjslkfj</li>
-                                    <li>ljljldjf alkjfk kalie ijfijfljlfjldsjlfjslfjslkfj</li>
+                            {
+                                product?.description && <div className='mt-10 mb-5 flex gap-[100px]'>
+                                    <span className='text-gray-400 font-semibold'>Description</span>
+                                    <p className='text-gray-400 font-semibold min-h-[20vh] border w-full p-3'>{ product?.description || 'Unknown' }</p>
+                                </div>
+                            }
+                            <span className='text-gray-400 pt-24 text-2xl font-semibold'>Specifications</span>
+                            <div className='mt-2 mx-1'>
+                                <ul className='flex flex-col gap-y-3'>
+                                    {
+                                        product?.specifications?.map((item,i)=>{
+                                            return <li key={"l" + i} className='flex'><div className='w-60' >{item?.name}</div><div className='w-96'>{item?.info}</div></li>
+                                        })
+                                    }
                                 </ul>
                             </div>
-                            <p className='mt-10 text-3xl text-gray-600'>Ratings & Reviews</p>
+                            <p className='pt-10 text-3xl text-gray-600'>Ratings & Reviews</p>
 
                             <div className=''>
 

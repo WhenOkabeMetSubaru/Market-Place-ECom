@@ -12,11 +12,11 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
             })
         }),
         getAllOrdersByUser: builder.query({
-            query: () => ({
+            query: ({jwtToken}) => ({
                 url: "api/v1/order/user",
                 method: "GET",
                 headers: {
-                    Authorization: `Bearer ${authUser || ""}`
+                    Authorization: `Bearer ${authUser || jwtToken || ""}`
                 }
             })
         }),

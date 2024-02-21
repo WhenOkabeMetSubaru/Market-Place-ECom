@@ -83,15 +83,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                 }
             })
         }),
-        getAllAddressByUser:builder.query({
-            query:({})=>({
-                url:"/api/v1/user/address/all",
-                method:"GET",
-                headers: {
-                    Authorization: `Bearer ${customerToken || ""}`
-                }
-            })
-        }),
+       
         addNewAddressByUser:builder.mutation({
             query:(addressDetails)=>({
                 url:`api/v1/user/address/add`,
@@ -104,13 +96,13 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         })
         ,
         updateAddressByUser:builder.mutation({
-            query:({addressDetails,addressId})=>({
+            query:({addressDetails,addressId,jwtToken})=>({
                 url:`api/v1/user/address/${addressId}/update`,
                 method:"PATCH",
                 headers: {
-                    Authorization: `Bearer ${customerToken || ""}`
+                    Authorization: `Bearer ${customerToken || jwtToken || ""}`
                 },
-                body:JSON.stringify(addressDetails)
+                body:JSON.stringify(addressDetails),
             })
         }),
         deleteAddressByUser:builder.mutation({
@@ -119,6 +111,15 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                 method:"DELETE",
                 headers: {
                     Authorization: `Bearer ${customerToken || ""}`
+                }
+            })
+        }),
+        getAllAddressForUser:builder.query({
+            query: ({jwtToken}) => ({
+                url: "api/v1/user/address/all",
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${customerToken || jwtToken || ""}`
                 }
             })
         })
@@ -136,10 +137,10 @@ export const {
     useUpdateCartMutation,
     useLazyGetInvoiceOrderQuery,
     useUpdateUserDetailsMutation,
-    useGetAllAddressByUserQuery,
     useAddNewAddressByUserMutation,
     useUpdateAddressByUserMutation,
-    useDeleteAddressByUserMutation
+    useDeleteAddressByUserMutation,
+    useGetAllAddressForUserQuery
 } = usersApiSlice;
 
 

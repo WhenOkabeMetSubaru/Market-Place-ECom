@@ -46,7 +46,11 @@ const UserProviderAuth = () => {
             .then(data => {
                 let LShop = localStorage.getItem('p_shop');
                 if (LShop) {
-                    let temp = data.data?.find(data => data._id == LShop);
+                    let temp = data.data?.find(data => {
+                        console.log(data._id);
+                        return data._id == LShop
+                    });
+                    console.log(temp,LShop,data)
                     setCurrentShop(temp);
                 } else {
                     setCurrentShop(data.data[0]);

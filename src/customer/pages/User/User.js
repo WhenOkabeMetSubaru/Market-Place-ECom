@@ -227,8 +227,9 @@ const User = () =>
 
       <ProfileSideMenu>
         <div className='w-3/4 '>
-
-          <div className='mx-10 py-10'>
+          <p className='text-lg font-semibold p-5'>Profile Information</p>
+          <div className='mx-4 py-6'>
+            
             <Form className='w-1/2 ' layout='vertical' form={ updateForm } onFinish={ handleUpdate }>
               <Form.Item name="name" label="Name">
                 <Input />

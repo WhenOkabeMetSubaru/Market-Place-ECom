@@ -10,7 +10,7 @@ import cartHelp from "../cart/cartHelp";
 const UserAuthContext = createContext({});
 
 const UserAuth = ({ children }) => {
-    const { verify, logout, loggedIn, updateData, currentUser, setCurrentUser, cartUpdate, currentCart, currentBuyProduct, refreshCart, setCurrentBuyProduct } = UserProviderAuth();
+    const { verify, logout, loggedIn, updateData, currentUser,clearCart, setCurrentUser, cartUpdate, currentCart, currentBuyProduct, refreshCart, setCurrentBuyProduct } = UserProviderAuth();
     // const { error, data, loading } = useQuery(GET_USER_BY_ID);
   
     
@@ -22,7 +22,7 @@ const UserAuth = ({ children }) => {
     }, [])
 
     return (
-        <UserAuthContext.Provider value={ { verify, logout, loggedIn, updateData, currentUser, setCurrentUser, cartUpdate, currentCart, currentBuyProduct, refreshCart, setCurrentBuyProduct }}>
+        <UserAuthContext.Provider value={ { verify, logout, loggedIn,clearCart, updateData, currentUser, setCurrentUser, cartUpdate, currentCart, currentBuyProduct, refreshCart, setCurrentBuyProduct }}>
             <div>
                 {children}
             </div>
@@ -315,8 +315,12 @@ const UserProviderAuth = () => {
 
     }
 
+    const clearCart  = ()=>{
+        setCurrentCart({});
+    }
+
     return {
-        verify, logout, loggedIn, updateData, currentUser, setCurrentUser, cartUpdate, currentCart, currentBuyProduct, refreshCart, setCurrentBuyProduct
+        verify, logout, loggedIn, updateData, currentUser,clearCart, setCurrentUser, cartUpdate, currentCart, currentBuyProduct, refreshCart, setCurrentBuyProduct
 
     }
 }

@@ -38,13 +38,13 @@ const SingleOrder = () =>
                         <p className='text-lg font-semibold'>Delivery Address</p>
                         <p className='text-lg font-semibold'>{ order?.customer_name }</p>
                         <p className='mt-2'>
-                            { order?.delivery_address?.street }
+                            { order?.delivery_address?.address }
 
                         </p>
-                        <p> { order?.delivery_address?.city } - { order?.delivery_address?.zipcode }   { order?.delivery_address?.state }</p>
+                        <p> { order?.delivery_address?.city } - { order?.delivery_address?.pincode }   { order?.delivery_address?.state }</p>
                         <span className='mt-2 flex gap-x-3'>
                             <p className='font-semibold'>Phone Number:</p>
-                            <p>{ order?.phone }</p>
+                            <p>{ order?.delivery_address?.mobile }</p>
                         </span>
                     </div>
                     <div className='w-1/3 border-l border-white'>
