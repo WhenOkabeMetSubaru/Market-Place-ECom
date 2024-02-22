@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import {Form, Input} from 'antd'
-import { useMutation } from '@apollo/client';
 // import {  SIGN_UP_USER } from '../../../app/graphql/queries/mutations';
 import auth from '../../../app/auth/auth';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
-import graphQLQueries from '../../../app/graphql/queries';
 import { Tabs } from '../../../components/utils/tabs';
 import { UserAuthFinal } from '../../../app/contextapi/UserContext';
 import { useLoginCustomerMutation, useSignupCustomerMutation } from '../../../../features/store/slices/usersApiSlice';

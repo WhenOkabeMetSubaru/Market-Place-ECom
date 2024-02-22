@@ -54,7 +54,7 @@ const SingleOrder = () =>
                             {/* <a target='_blank' rel='noopener noreferrer' href={ "http://localhost:4000/api/user/order/invoice/" + params?.orderId }><button onClick={ () => { } } className='flex justify-center items-center bg-purple-600 text-white rounded w-28 h-9'>Download</button></a> */}
                             <button onClick={async()=> {
                                 // pdfDetails({ orderId: params?.orderId }).then(() => { })
-                                    window.open("http://localhost:4000/api/user/order/invoice/" + params?.orderId)
+                                    // window.open("http://localhost:4000/api/user/order/invoice/" + params?.orderId)
                             }} className='flex justify-center items-center bg-purple-600 text-white rounded w-28 h-9'>Download</button>
                         </span>
                     </div>

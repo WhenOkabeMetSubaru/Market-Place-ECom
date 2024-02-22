@@ -1,8 +1,7 @@
-import { useMutation, useQuery } from '@apollo/client';
+
 import React, { Fragment, Suspense, useEffect, useReducer, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import cartHelp from '../../app/cart/cartHelp';
-import graphQLQueries from '../../app/graphql/queries';
 import { UserAuthFinal } from '../../app/contextapi/UserContext';
 import { imageUpload } from '../../app/imageUpload/imageUpload';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';

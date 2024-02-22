@@ -2,8 +2,6 @@ import React, { Fragment, Suspense, useEffect, useState } from 'react'
 import cartHelp from '../../app/cart/cartHelp';
 import { UserAuthFinal } from '../../app/contextapi/UserContext'
 import { Modal, Form, Input } from 'antd';
-import { useMutation } from '@apollo/client';
-import graphQLQueries from '../../app/graphql/queries';
 import { useNavigate } from 'react-router';
 import { useUpdateCartMutation } from '../../../features/store/slices/usersApiSlice';
 

@@ -11,13 +11,10 @@ import NavBar from './customer/pages/NavBar/NavBar'
 import Login from './customer/pages/Authorization/Login/Login'
 import SignUp from './customer/pages/Authorization/SignUp/SignUp';
 import Seller from './customer/pages/Authorization/Seller/Seller';
-import Shop from './customer/pages/Shops/Shops'
-import SingleShop from './customer/pages/Shops/SingleShop'
 import Home from './customer/pages/Home/Home';
 import Product from './customer/pages/Product/Product';
 import Cart from './customer/pages/Cart/Cart'
 import Order from './customer/pages/Orders/Order';
-import ShopOrders from './customer/pages/Shops/ShopOrders';
 import Checkout from './customer/pages/Checkout/Checkout'
 
 
@@ -73,9 +70,6 @@ function App ()
           <Route exact path="/user/orders" element={ <UserAuth children={ <NavBar children={ <Order /> } /> } /> } />
           <Route exact path="/signup" element={ <UserAuth children={ <NavBar children={ <SignUp /> } /> } /> } />
           <Route exact path="/seller" element={ <UserAuth children={ <NavBar children={ <Seller /> } /> } /> } />
-          <Route exact path="/user/myshops" element={ <UserAuth children={ <NavBar children={ <Shop /> } /> } /> } />
-          <Route exact path="/user/myshops/:shopId" element={ <UserAuth children={ <NavBar children={ <SingleShop /> } /> } /> } />
-          <Route exact path="/user/myshops/:shopId/orders" element={ <UserAuth children={ <NavBar children={ <ShopOrders /> } /> } /> } />
           <Route exact path="/product/:productId" element={ <UserAuth children={ <NavBar children={ <Product /> } /> } /> } />
           <Route exact path="/cart" element={ <UserAuth children={ <NavBar children={ <Cart /> } /> } /> } />
           <Route exact path="/checkout" element={ <UserAuth children={ <NavBar children={ <Checkout/> } /> } /> } />

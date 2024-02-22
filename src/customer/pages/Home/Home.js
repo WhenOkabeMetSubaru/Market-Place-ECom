@@ -1,9 +1,8 @@
-import { useQuery } from '@apollo/client'
+
 import React, { Suspense, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { UserAuthFinal } from '../../app/contextapi/UserContext.js';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md'
-import graphQLQueries from '../../app/graphql/queries/index.js';
 import { useGetAllProductsByUserHomeQuery } from '../../../features/store/slices/productsApiSlice.js';
 import { useGetAllPrimaryCategoriesQuery } from '../../../features/store/slices/categoryApiSlice.js';
 

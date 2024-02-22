@@ -4,7 +4,6 @@ import auth from '../../app/auth/auth';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import { UserAuthFinal } from '../../app/contextapi/UserContext';
-import graphQLQueries from '../../app/graphql/queries';
 import { ProfileSideMenu } from './component';
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useAddNewAddressByUserMutation, useDeleteAddressByUserMutation, useGetAllAddressByUserQuery, useGetAllAddressForUserQuery, useUpdateAddressByUserMutation } from '../../../features/store/slices/usersApiSlice';

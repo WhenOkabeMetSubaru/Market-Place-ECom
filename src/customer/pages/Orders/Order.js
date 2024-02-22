@@ -1,9 +1,8 @@
-import { useQuery } from '@apollo/client'
+
 import { Checkbox, Input } from 'antd';
 import React, { Fragment, Suspense, useState } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai';
 import { UserAuthFinal } from '../../app/contextapi/UserContext';
-import graphQLQueries from '../../app/graphql/queries';
 import { useGetAllOrdersByUserQuery } from '../../../features/store/slices/ordersApiSlice';
 import {useNavigate}  from 'react-router'
 import auth from '../../app/auth/auth';

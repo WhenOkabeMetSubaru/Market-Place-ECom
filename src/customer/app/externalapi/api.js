@@ -1,6 +1,6 @@
 export const getInvoicePDF = async ({orderId})=>{
     try {
-        let response = await fetch("http://localhost:4000/api/user/order/invoice/" + orderId,{
+        let response = await fetch("https://testingbuild-psi.vercel.app/api/user/order/invoice/" + orderId,{
             method:"GET",
             headers:{
                 'Content-Type':"application/pdf",
@@ -19,7 +19,7 @@ export const getInvoicePDF = async ({orderId})=>{
 export const searchProductHomeScreen = async({name})=>{
     try {
         
-        let response = await fetch("http://localhost:4000/api/v1/products/search/home/"+name,{
+        let response = await fetch("https://testingbuild-psi.vercel.app/api/v1/products/search/home/"+name,{
             method:"GET",
             headers:{
                 "Content-Type":"application/json",

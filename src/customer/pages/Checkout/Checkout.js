@@ -2,7 +2,6 @@ import { useMutation } from '@apollo/client';
 import { Form, Input,notification } from 'antd'
 import React, { Suspense, useEffect, useState } from 'react'
 import { UserAuthFinal } from '../../app/contextapi/UserContext';
-import graphQLQueries from '../../app/graphql/queries';
 import { useAddNewOrderByUserMutation } from '../../../features/store/slices/ordersApiSlice';
 import { useNavigate} from 'react-router'
 import { useAddNewAddressByUserMutation, useDeleteAddressByUserMutation, useGetAllAddressForUserQuery, useUpdateAddressByUserMutation } from '../../../features/store/slices/usersApiSlice';
@@ -137,6 +136,7 @@ const CheckOut = () =>
     return (
         <Suspense fallback={ <p>Loading........</p> }>
             <section className='w-full bg-gray-50 min-h-screen flex justify-center'>
+                {console.log("wleldf",currentUser)}
                 <div className='w-11/12 flex space-x-10 min-h-screen' >
                     <div className='w-3/4 bg-white p-10 '>
                         {/* <Form layout={ "vertical" } className="w-3/4" requiredMark={ "false" } form={ orderForm } onFinish={ handleOrderFinish }>

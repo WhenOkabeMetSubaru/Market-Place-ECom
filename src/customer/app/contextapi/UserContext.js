@@ -2,8 +2,6 @@ import { useNavigate } from "react-router";
 import auth from "../auth/auth";
 
 import { createContext, useContext, useState, useEffect } from "react";
-import { useQuery } from "@apollo/client";
-import { GET_USER_BY_ID } from "../graphql/queries/queries";
 import cartHelp from "../cart/cartHelp";
 
 
@@ -46,7 +44,7 @@ const UserProviderAuth = () => {
     const signal = abortController.signal
 
     useEffect(()=>{
-        fetch('http://localhost:4000/api/v1/user/single',{
+        fetch('https://testingbuild-psi.vercel.app/api/v1/user/single',{
             method:'GET',
             headers:{
                 'Content-Type':'application/json',
@@ -58,7 +56,7 @@ const UserProviderAuth = () => {
         setCurrentUser(data.data)
         })
 
-        fetch('http://localhost:4000/api/v1/user/cart/unique',{
+        fetch('https://testingbuild-psi.vercel.app/api/v1/user/cart/unique',{
             method:"GET",
             headers:{
                 'Content-Type': 'application/json',
@@ -118,7 +116,7 @@ const UserProviderAuth = () => {
     const cartUpdate = () =>
     {
 
-        fetch('http://localhost:4000/api/v1/user/cart/add', {
+        fetch('https://testingbuild-psi.vercel.app/api/v1/user/cart/add', {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
@@ -234,7 +232,7 @@ const UserProviderAuth = () => {
     const refreshCart = () =>
     {
 
-        fetch('http://localhost:4000/api/v1/user/cart/unique', {
+        fetch('https://testingbuild-psi.vercel.app/api/v1/user/cart/unique', {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
