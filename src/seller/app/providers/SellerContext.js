@@ -35,7 +35,7 @@ const UserProviderAuth = () => {
     // const [currentCart,setCurrentCart] = useState(cartHelp.getCart());
 
     useEffect(() => {
-        fetch('http://localhost:4000/api/v1/seller/shops', {
+        fetch('https://testingbuild-psi.vercel.app/api/v1/seller/shops', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -45,6 +45,7 @@ const UserProviderAuth = () => {
         }).then(res => res.json())
             .then(data => {
                 let LShop = localStorage.getItem('p_shop');
+                console.log(LShop,data)
                 if (LShop) {
                     let temp = data.data?.find(data => {
                         console.log(data._id);
@@ -54,6 +55,7 @@ const UserProviderAuth = () => {
                     setCurrentShop(temp);
                 } else {
                     setCurrentShop(data.data[0]);
+                    
                     localStorage.setItem('p_shop', data.data[0]._id)
                 }
 

@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { Table, Tooltip } from 'antd';
-import React, { useReducer } from 'react'
+import React, { useEffect, useReducer } from 'react'
 import { AiOutlineEdit } from 'react-icons/ai';
 import graphQLQueries from '../../app/graphql';
 import { SellerAuthFinal } from '../../app/providers/SellerContext'
@@ -28,6 +28,7 @@ const SellerListings = () => {
   //     _id: currentShop?._id
   //   }
   // })
+  useEffect(()=>{console.log(currentShop)})
 
   let listingsData = useGetAllProductsByShopQuery({
     shopId:currentShop?._id

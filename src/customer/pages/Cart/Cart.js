@@ -8,11 +8,12 @@ import { useUpdateCartMutation } from '../../../features/store/slices/usersApiSl
 const Cart = () =>
 {
 
-    const { currentCart, currentUser, refreshCart, setCurrentBuyProduct,clearCart } = UserAuthFinal();
+    const { currentCart, currentUser, refreshCart, setCurrentBuyProduct, clearCart } = UserAuthFinal();
     const navigate = useNavigate();
     const [cartData, setCartData] = useState([]);
     const [checkoutForm] = Form.useForm();
     const [showCheckout, setShowCheckout] = useState(false);
+    const [currentClickCart,setCurrentClickCart] = useState(0)
 
 
 
@@ -26,7 +27,7 @@ const Cart = () =>
     //     }
     // });
 
-    let [updateCart] = useUpdateCartMutation();
+    let [updateCart, cartLoadDetails] = useUpdateCartMutation();
 
     const handleChange = (e, i) =>
     {
@@ -79,7 +80,7 @@ const Cart = () =>
         //     total_amount:product?.sellingprice
         // }])
 
-        
+
         let itemArr = currentCart?.products?.map((data) =>
         {
             return {
@@ -90,7 +91,7 @@ const Cart = () =>
                 total_amount: currentCart.total_amount
             }
         })
-       
+
         setCurrentBuyProduct(itemArr);
         navigate('/checkout')
     }
@@ -108,7 +109,7 @@ const Cart = () =>
                                 {
                                     return <div key={ i } className='flex relative border-gray-50 py-5 gap-x-3 items-center hover:border-gray-200 border '>
                                         <div>
-                                            {/* <img className='w-36 h-36' src={ data?.product?.images?.length > 0 ? data?.product?.images[0] : 'https://rukminim1.flixcart.com/flap/128/128/image/29327f40e9c4d26b.png?q=100' } /> */}
+                                            {/* <img className='w-36 h-36' src={ data?.product?.images?.length > 0 ? data?.product?.images[0] : 'https://rukminim1.flixcart.com/flap/128/128/image/29327f40e9c4d26b.png?q=100' } /> */ }
                                             <div style={ { backgroundImage: `url(${data?.product?.images[0]})` } } className=' bg-no-repeat bg-contain w-[150px] h-[150px]' />
                                         </div>
                                         <div>
@@ -122,34 +123,44 @@ const Cart = () =>
                                                 <p className='text-lg font-semibold'>₹{ data?.product?.sellingprice }</p>
                                             </div>
                                             <div className='flex gap-x-3 mt-2 items-center'>
-                                                <button className='py-1 font-semibold px-3  bg-gray-100 ' onClick={ () =>
                                                 {
-                                                    updateCart({
+                                                    cartLoadDetails?.isLoading == true && currentClickCart==i ? <> <div className='w-28 h-8 rounded-sm flex justify-center items-center  bg-gray-500'><div className="loader"></div></div></> :
+                                                        <>
+                                                            <button className='py-1 font-semibold px-3 text-[1rem] bg-gray-100 ' onClick={ () =>
+                                                            {
+                                                                setCurrentClickCart(i)
+                                                                updateCart({
 
-                                                        cartId: currentCart._id,
-                                                        product: data.product._id,
-                                                        quantity: data.quantity - 1
+                                                                    cartId: currentCart._id,
+                                                                    product: data.product._id,
+                                                                    quantity: data.quantity - 1
 
-                                                    }).then((res)=> {
-                                                        if(res.data.info=="Cart Deleted Successfully"){
-                                                            clearCart()
-                                                            refreshCart()
-                                                        }else{
-                                                            refreshCart()
-                                                        }
-                                                    })
-                                                } }>-</button>
-                                                <p className='text-lg '>{ data?.quantity }</p>
-                                                <button className='py-1 font-semibold px-3  bg-gray-100 ' onClick={ () =>
-                                                {
-                                                    updateCart({
+                                                                }).then((res) =>
+                                                                {
+                                                                    if (res.data.info == "Cart Deleted Successfully")
+                                                                    {
+                                                                        clearCart()
+                                                                        refreshCart()
+                                                                    } else
+                                                                    {
+                                                                        refreshCart()
+                                                                    }
+                                                                })
+                                                            } }>-</button>
+                                                            <p className='text-lg '>{ data?.quantity }</p>
+                                                            <button className='py-1 font-semibold px-3 text-[1rem] bg-gray-100 ' onClick={ () =>
+                                                            {
+                                                                setCurrentClickCart(i)
+                                                                updateCart({
 
-                                                        cartId: currentCart._id,
-                                                        product: data.product._id,
-                                                        quantity: data.quantity + 1
+                                                                    cartId: currentCart._id,
+                                                                    product: data.product._id,
+                                                                    quantity: data.quantity + 1
 
-                                                    }).then((res)=>refreshCart())
-                                                } }>+</button>
+                                                                }).then((res) => refreshCart())
+                                                            } }>+</button>
+                                                        </>
+                                                }
 
                                             </div>
                                             <div className='flex gap-x-6 pt-3 items-center'>
@@ -162,7 +173,7 @@ const Cart = () =>
                                 })
                             }
 
-                            <button hidden={!currentCart?.products?.length >0} onClick={ handleCartCheckout } className='px-10 py-2 bg-gradient-to-l from-purple-500 to-purple-600 text-white rounded my-10 font-semibold'>CheckOut</button>
+                            <button hidden={ !currentCart?.products?.length > 0 } onClick={ handleCartCheckout } className='px-10 py-2 bg-gradient-to-l from-purple-500 to-purple-600 text-white rounded my-10 font-semibold'>CheckOut</button>
                         </div>
                         <div className='w-1/3 fixed right-20 top-2'>
                             <p className='p-3 text-gray-400 font-semibold text-lg'>Price Details</p>

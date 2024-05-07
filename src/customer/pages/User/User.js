@@ -161,7 +161,7 @@ const User = () =>
 {
 
   const [updateForm] = Form.useForm();
-  const { updateData, currentUser } = UserAuthFinal();
+  const { updateData, currentUser,logout } = UserAuthFinal();
   // const [updateUser, { error, data, loading }] = useMutation(graphQLQueries.UPDATE_USER);
   const navigate = useNavigate();
 
@@ -239,8 +239,9 @@ const User = () =>
               <Form.Item className='mt-5' name="mobile" label="Mobile">
                 <Input />
               </Form.Item>
-              <div className=''>
+              <div className='flex gap-x-20 '>
                 <button className='py-2 px-5 bg-orange-500 text-white font-semibold hover:bg-orange-600 rounded shadow'>Update</button>
+                <button onClick={()=>{logout()}} type="button" className='py-2 px-5 bg-blue-500 text-white font-semibold hover:bg-blue-600 rounded shadow'>Logout</button>
               </div>
 
             </Form>
