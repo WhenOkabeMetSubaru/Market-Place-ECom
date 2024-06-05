@@ -59,10 +59,10 @@ const NavBar = ({ children }) =>
                                 searchProduct?.map((product) =>
                                 {
                                     return (
-                                        <a target='_blank' rel={"noreferrer"} href={"http://localhost:3000/product/"+product?._id} key={ product._id } className='h-20 cursor-pointer hover:bg-gray-50 flex items-center gap-x-2 px-2'>
+                                        <a target='_blank' rel={ "noreferrer" } href={"https://buycartpersonalsite.netlify.app/product/"+product?._id} key={ product._id } className='h-20 cursor-pointer hover:bg-gray-50 flex items-center gap-x-2 px-2'>
                                             <img src={ product?.images[0] || "https://rukminim1.flixcart.com/flap/128/128/image/29327f40e9c4d26b.png?q=100" } className='w-14 h-14 rounded' />
                                             <div className='flex flex-col justify-start'>
-                                                <p className='text-[0.95rem] text-black '>{ product?.name }</p>
+                                                <p className='text-[0.95rem] text-black '>{ product?.name?.substring(0,100) }</p>
                                                 <p>.</p>
                                             </div>
                                         </a>

@@ -87,7 +87,7 @@ const Home = () =>
                       <div className='w-[250px] h-[330px] border border-gray-100  hover:shadow-lg'>
                         <div className='flex border-b border-gray-100 justify-center h-[185px] w-full bg-white'>
                           {/* <img src={ data?.images ? data.images[0] : '' } className="w-[200px] h-[185px]" /> */ }
-                          <div style={ { backgroundImage: `url(${data?.images[0]})` } } className=' bg-no-repeat bg-contain w-[200px] h-[190px]' />
+                          <div style={ { backgroundImage: `url(${data?.images[0] || "https://cardiamed.de/wp-content/uploads/2021/02/Placeholder.jpg"})` } } className=' bg-no-repeat bg-contain w-[200px] h-[190px]' />
                         </div>
                         <div className='text-md gap-y-1 mt-3 flex flex-col mx-5'>
                           <span className='text-gray-600 font-semibold'>{ data?.name?.charAt(0).toUpperCase() + data?.name?.substring(1, 55) } { data?.name?.length > 55 ? "...." : "" }</span>
